@@ -39,6 +39,63 @@ const MORSE_TABLE = {
 };
 */
 
-module.exports = function decode(/* expr */) {
-  throw new Error('Not implemented');
+module.exports = function decode(expr) {
+  const MORSE_TABLE = {
+    '.-': 'a',
+    '-...': 'b',
+    '-.-.': 'c',
+    '-..': 'd',
+    '.': 'e',
+    '..-.': 'f',
+    '--.': 'g',
+    '....': 'h',
+    '..': 'i',
+    '.---': 'j',
+    '-.-': 'k',
+    '.-..': 'l',
+    '--': 'm',
+    '-.': 'n',
+    '---': 'o',
+    '.--.': 'p',
+    '--.-': 'q',
+    '.-.': 'r',
+    '...': 's',
+    '-': 't',
+    '..-': 'u',
+    '...-': 'v',
+    '.--': 'w',
+    '-..-': 'x',
+    '-.--': 'y',
+    '--..': 'z',
+    '.----': '1',
+    '..---': '2',
+    '...--': '3',
+    '....-': '4',
+    '.....': '5',
+    '-....': '6',
+    '--...': '7',
+    '---..': '8',
+    '----.': '9',
+    '-----': '0',
+  };
+
+  const CODE = { 10: '.', 11: '-' };
+
+  const words = expr.split('**********').map((el) => {
+    const arr = [];
+
+    for (let i = 0; i < el.length; i += 10) {
+      const symbol = el.slice(el.indexOf('1', i), i + 10);
+      let morzeSymbol = '';
+
+      for (let j = 0; j < symbol.length; j += 2) {
+        morzeSymbol += CODE[symbol.substring(j, j + 2)];
+      }
+      arr.push(MORSE_TABLE[morzeSymbol]);
+    }
+
+    return arr.join('');
+  });
+
+  return words.join(' ');
 };
